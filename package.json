@@ -1,6 +1,6 @@
 {
-  "name": "mup",
-  "version": "0.11.3",
+  "name": "map",
+  "version": "0.11.3-magic-1",
   "description": "Production Quality Meteor Deployments",
   "dependencies": {
     "async": "^0.9.0",
@@ -13,12 +13,12 @@
     "archiver": "0.14.x"
   },
   "bin": {
-    "mup": "./bin/mup"
+    "map": "./bin/map"
   },
-  "author": "Arunoda Susiripala <arunoda.susiripala@gmail.com>",
+  "author": "chub",
   "repository": {
     "type": "git",
-    "url": "git://github.com/arunoda/meteor-up.git"
+    "url": "git://github.com/chub/magic-up.git"
   },
   "license": "MIT"
 }
