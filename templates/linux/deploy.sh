@@ -146,10 +146,28 @@ echo "Starting app"
 sudo start <%= appName %> || :
 
 echo "Waiting for <%= deployCheckWaitTime %> seconds while app is booting up"
-sleep <%= deployCheckWaitTime %>
+WAIT_UNTIL_SECS=$(date +%s)
+CURL_RV=0
+(( WAIT_UNTIL_SECS = WAIT_UNTIL_SECS + <%= deployCheckWaitTime %> ))
+while [[ $WAIT_UNTIL_SECS -gt $(date +%s) ]]; do
+    echo "Checking if app is alive: $(date +%s) / ${WAIT_UNTIL_SECS}"
+    curl -o /dev/null --max-time 1 localhost:${PORT} | true
+    CURL_RV=${PIPESTATUS[0]}
+    if [[ ${CURL_RV} = 0 ]]; then
+        # No longer need to wait
+        CURL_RV=1
+        break
+    else
+        echo "  No, it is not: ${CURL_RV}"
+        sleep 1
+    fi
+done
 
-echo "Checking is app booted or not?"
-curl localhost:${PORT} || revert_app
+# One last check
+if [[ $CURL_RV = 0 ]]; then
+    echo "Checking is app booted or not?"
+    curl localhost:${PORT} || revert_app
+fi
 
 # chown to support dumping heapdump and etc
 sudo chown -R meteoruser app
