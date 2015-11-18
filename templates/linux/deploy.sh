@@ -57,6 +57,7 @@ rebuild_binary_npm_modules () {
 }
 
 revert_app (){
+  date
   if [[ -d old_app ]]; then
     sudo rm -rf app
     sudo mv old_app app
@@ -75,9 +76,12 @@ revert_app (){
 # logic
 set -e
 
+date
 TMP_DIR=/opt/<%= appName %>/tmp
+date
 BUNDLE_DIR=${TMP_DIR}/bundle
 
+date
 cd ${TMP_DIR}
 sudo rm -rf bundle
 sudo tar xvzf bundle.tar.gz > /dev/null
@@ -85,29 +89,34 @@ sudo chmod -R +x *
 sudo chown -R ${USER} ${BUNDLE_DIR}
 
 # rebuilding fibers
+date
 cd ${BUNDLE_DIR}/programs/server
 
+date
 if [ -d ./npm ]; then
   cd npm
-  rebuild_binary_npm_modules
+  time rebuild_binary_npm_modules
   cd ../
 fi
 
+date
 if [ -d ./node_modules ]; then
   cd ./node_modules
-  gyp_rebuild_inside_node_modules
+  time gyp_rebuild_inside_node_modules
   cd ../
 fi
 
+date
 if [ -f package.json ]; then
   # support for 0.9
-  sudo npm install
+  time sudo npm install
 else
   # support for older versions
-  sudo npm install fibers
-  sudo npm install bcrypt
+  time sudo npm install fibers
+  time sudo npm install bcrypt
 fi
 
+date
 cd /opt/<%= appName %>/
 
 # remove old app, if it exists
@@ -123,12 +132,17 @@ fi
 sudo mv tmp/bundle app
 
 #wait and check
+date
 echo "Waiting for MongoDB to initialize. (5 minutes)"
-. /opt/<%= appName %>/config/env.sh
+time . /opt/<%= appName %>/config/env.sh
 wait-for-mongo ${MONGO_URL} 300000
 
 # restart app
+date
+echo "Stopping app"
 sudo stop <%= appName %> || :
+date
+echo "Starting app"
 sudo start <%= appName %> || :
 
 echo "Waiting for <%= deployCheckWaitTime %> seconds while app is booting up"
