@@ -14,8 +14,8 @@ docker rm -f $APPNAME-frontend
 
 # We don't need to fail the deployment because of a docker hub downtime
 set +e
-docker pull <%= docker.image %>
-set -e
+docker pull <%= docker.image %> &&
+set -e &&
 
 docker run \
   -d \
@@ -30,13 +30,13 @@ docker run \
   <% for(var volume in volumes) { %>-v <%= volume %>:<%= volumes[volume] %> <% } %>\
   <% for(var args in docker.args) { %> <%= docker.args[args] %> <% } %>\
   --name=$APPNAME \
-  <%= docker.image %>
+  <%= docker.image %> &&
 
 <% if(typeof sslConfig === "object")  { %>
   # We don't need to fail the deployment because of a docker hub downtime
-  set +e
-  docker pull <%= docker.imageFrontendServer %>
-  set -e
+  set +e &&
+  docker pull <%= docker.imageFrontendServer %> &&
+  set -e &&
   docker run \
     -d \
     --restart=always \
@@ -45,5 +45,7 @@ docker run \
     --link=$APPNAME:backend \
     --publish=<%= sslConfig.port %>:443 \
     --name=$APPNAME-frontend \
-    <%= docker.imageFrontendServer %> /start.sh
+    <%= docker.imageFrontendServer %> /start.sh &&
 <% } %>
+
+echo Done starting!
