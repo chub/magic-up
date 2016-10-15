@@ -11,6 +11,7 @@ export function runTaskList(list, sessions, opts) {
         const summary = summaryMap[host];
         if (summary.error) {
           reject(summary.error);
+          process.exit(1);
           return;
         }
       }
