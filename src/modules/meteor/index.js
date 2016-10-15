@@ -105,8 +105,6 @@ export function push(api) {
     .then(() => {
       config.log = config.log || {
         opts: {
-          'max-size': '100m',
-          'max-file': 10
         }
       };
       const list = nodemiral.taskList('Pushing Meteor');
