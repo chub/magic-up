@@ -1,11 +1,11 @@
 {
-  "name": "mup",
-  "version": "1.3.3",
-  "description": "Production Quality Meteor Deployments",
+  "name": "map",
+  "version": "1.3.3-1",
+  "description": "Magic Up",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zodern/meteor-up.git"
+    "url": "git+https://github.com/chub/magic-up.git"
   },
   "keywords": [
     "meteor",
@@ -19,7 +19,7 @@
   },
   "homepage": "http://meteor-up.com/",
   "bin": {
-    "mup": "./index.js"
+    "map": "./index.js"
   },
   "scripts": {
     "prepublish": "npm run build -s",
