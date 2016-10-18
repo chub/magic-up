@@ -14,8 +14,8 @@ docker rm -f $APPNAME-frontend
 
 # We don't need to fail the deployment because of a docker hub downtime
 set +e
-docker pull <%= docker.image %> &&
-set -e &&
+docker pull <%= docker.image %>
+set -e
 
 docker run \
   -d \
