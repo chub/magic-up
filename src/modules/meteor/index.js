@@ -103,10 +103,15 @@ export function push(api) {
 
   return buildApp(appPath, buildOptions)
     .then(() => {
-      config.log = config.log || {
-        opts: {
-        }
-      };
+      if (!config.log) {
+        console.log = {
+          driver: "json-file",
+          opts: {
+            'max-size': '100m',
+            'max-file': 10
+          }
+        };
+      }
       const list = nodemiral.taskList('Pushing Meteor');
 
       list.copy('Pushing Meteor App Bundle to The Server', {
