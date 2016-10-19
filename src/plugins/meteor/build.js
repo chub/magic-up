@@ -35,7 +35,9 @@ function buildApp(appPath, buildOptions, verbose, api) {
     const callback = err => {
       if (err) {
         reject(err);
-        return;
+
+        // If there is an error building the app, exit.
+        process.exit(1);
       }
       resolve();
     };
