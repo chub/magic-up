@@ -60,4 +60,6 @@ while [[ true ]]; do
     echo " " 1>&2
     exit 1
   fi
+
+  echo " Still waiting (${elapsed} of ${DEPLOY_CHECK_WAIT_TIME} seconds)..."
 done
