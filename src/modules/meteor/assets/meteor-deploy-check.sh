@@ -26,7 +26,7 @@ elaspsed=0
 while [[ true ]]; do
   sleep 1
   elaspsed=$((elaspsed+1))
-  curl localhost:$PORT && exit 0
+  curl --max-time 1 localhost:$PORT && exit 0
 
   if [ "$elaspsed" == "$DEPLOY_CHECK_WAIT_TIME" ]; then
     echo " "  1>&2
