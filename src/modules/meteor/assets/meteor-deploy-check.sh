@@ -35,4 +35,6 @@ while [[ true ]]; do
     # revert_app
     exit 1
   fi
+
+  echo " Still waiting (${elapsed} of ${DEPLOY_CHECK_WAIT_TIME} seconds)..."
 done
