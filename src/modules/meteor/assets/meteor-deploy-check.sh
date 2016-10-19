@@ -29,7 +29,10 @@ while [[ true ]]; do
   curl localhost:$PORT && exit 0
 
   if [ "$elaspsed" == "$DEPLOY_CHECK_WAIT_TIME" ]; then
-    revert_app
+    echo " "  1>&2
+    echo "  Server failed to verify. mup usually reverts here, but the server will be left in this state for further investigation."
+    echo " "  1>&2
+    # revert_app
     exit 1
   fi
 done
