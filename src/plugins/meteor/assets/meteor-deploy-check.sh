@@ -53,7 +53,11 @@ while [[ true ]]; do
     && exit 0
 
   if [ "$elapsed" "==" "$DEPLOY_CHECK_WAIT_TIME" ]; then
-    revert_app
+    echo " " 1>&2
+    echo "  Server failed to verify. mup usually reverts here, but the server will be left in this state for further investigation."
+    echo " " 1>&2
+    echo "  Caution: DEPLOYING AGAIN WILL DESTROY THE ROLLBACK COPY."
+    echo " " 1>&2
     exit 1
   fi
 done
