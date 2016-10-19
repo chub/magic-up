@@ -8,7 +8,10 @@ function buildApp(appPath, buildOptions) {
   return new Promise((resolve, reject) => {
     const callback = (err) => {
       if(err) {
-        return reject(err);
+        reject(err);
+        // If there is an error building the app, exit.
+        process.exit(1);
+        return;
       }
       resolve();
     };
