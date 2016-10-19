@@ -44,7 +44,9 @@ while [[ true ]]; do
   # fail because of a problem with the app, not from problems with the config.
   #
   # --insecure Without this, it would sometimes fail when ssl is set up
+  # --max-time 1: Wait at most one second
   curl \
+    --max-time 1 \
     --insecure \
     $DEPLOY_CHECK_URL \
     <% if (host) { %> --header "HOST:$HOST" <% } %>  \
