@@ -22,13 +22,13 @@ revert_app (){
   echo ""
 }
 
-elaspsed=0
+elapsed=0
 while [[ true ]]; do
   sleep 1
-  elaspsed=$((elaspsed+1))
+  elapsed=$((elapsed+1))
   curl --max-time 1 localhost:$PORT && exit 0
 
-  if [ "$elaspsed" == "$DEPLOY_CHECK_WAIT_TIME" ]; then
+  if [ "$elapsed" == "$DEPLOY_CHECK_WAIT_TIME" ]; then
     echo " "  1>&2
     echo "  Server failed to verify. mup usually reverts here, but the server will be left in this state for further investigation."
     echo " "  1>&2
