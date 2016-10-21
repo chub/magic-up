@@ -35,10 +35,10 @@ revert_app (){
   echo ""
 }
 
-elaspsed=0
+elapsed=0
 while [[ true ]]; do
   sleep 1
-  elaspsed=$((elaspsed+1))
+  elapsed=$((elapsed+1))
 
   # Since this failing causes the app to rollback, it should only
   # fail because of a problem with the app, not from problems with the config.
@@ -50,7 +50,7 @@ while [[ true ]]; do
     <% if (host) { %> --header "HOST:$HOST" <% } %>  \
     && exit 0
 
-  if [ "$elaspsed" "==" "$DEPLOY_CHECK_WAIT_TIME" ]; then
+  if [ "$elapsed" "==" "$DEPLOY_CHECK_WAIT_TIME" ]; then
     revert_app
     exit 1
   fi
