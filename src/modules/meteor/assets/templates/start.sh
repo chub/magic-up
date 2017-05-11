@@ -5,6 +5,7 @@ APP_PATH=/opt/$APPNAME
 BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
 PORT=<%= port %>
+DOCKER_IMAGE=<%= docker.image %>
 
 # Remove previous version of the app, if exists
 docker rm -f $APPNAME
@@ -14,7 +15,7 @@ docker rm -f $APPNAME-frontend
 
 # We don't need to fail the deployment because of a docker hub downtime
 set +e
-docker pull <%= docker.image %>
+docker pull $DOCKER_IMAGE
 set -e
 
 docker run \
@@ -30,7 +31,7 @@ docker run \
   <% for(var volume in volumes) { %>-v <%= volume %>:<%= volumes[volume] %> <% } %>\
   <% for(var args in docker.args) { %> <%= docker.args[args] %> <% } %>\
   --name=$APPNAME \
-  <%= docker.image %> &&
+  $DOCKER_IMAGE &&
 
 <% if(typeof sslConfig === "object")  { %>
   # We don't need to fail the deployment because of a docker hub downtime
