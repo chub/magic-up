@@ -6,6 +6,7 @@ BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
 PORT=<%= port %>
 DOCKER_IMAGE=<%= docker.image %>
+DOCKER_RUN_FLAGS=<%= docker.runFlags %>
 
 # Remove previous version of the app, if exists
 docker rm -f $APPNAME
@@ -30,6 +31,7 @@ docker run \
   <% for(var option in logConfig.opts) { %>--log-opt <%= option %>=<%= logConfig.opts[option] %> <% } %>\
   <% for(var volume in volumes) { %>-v <%= volume %>:<%= volumes[volume] %> <% } %>\
   <% for(var args in docker.args) { %> <%= docker.args[args] %> <% } %>\
+  <% if(docker.runFlags) { %><%= docker.runFlags %> <% } %>\
   --name=$APPNAME \
   $DOCKER_IMAGE &&
 

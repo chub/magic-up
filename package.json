@@ -1,6 +1,6 @@
 {
   "name": "map",
-  "version": "1.0.4-1",
+  "version": "1.0.4-2",
   "description": "Magic Up",
   "main": "lib/index.js",
   "bin": {
